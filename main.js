@@ -2,6 +2,8 @@ const axios = require('axios');
 const fs = require('fs');
 const config = require('config');
 
+console.log(new Date().toLocaleString());
+
 const {
     base_url,
     topic,
