@@ -1,5 +1,7 @@
 {
     "base_url":"http://localhost:8981",
+    "topic":"replace-this-topic",
     "notify_base_url":"https://ntfy.sh",
+    "notify_topic":"replace_this_topic",
     "report_options":{}
 }
