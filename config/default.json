@@ -1,0 +1,5 @@
+{
+    "base_url":"http://localhost:8981",
+    "notify_base_url":"https://ntfy.sh",
+    "report_options":{}
+}
