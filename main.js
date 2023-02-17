@@ -67,16 +67,23 @@ function checkTime(report_obj){
         
         createReportFile(`${store_dir_good}/${device_name}`, device_name);
         
+        const file_loc = `${store_dir_bad}/${device_name}`;
+        
+        // if the date is in far enough in the past, notify (if it hasn't been sent yet)
         if(now > report_obj[cur].date){
             console.log(`There was a problem with ${device_name}`);
-            const file_loc = `${store_dir_bad}/${device_name}`;
             const already_exists = createReportFile(file_loc, device_name);
             if(!already_exists){
                 notify(`Device not reporting in time`, device_name);
             }
-        }else{
-            console.log(`No issue with ${device_name}`)
-            deleteReportFile(device_name);
+        }else{ // Don't notify, and delete old report 
+            console.log(`No issue with ${device_name}`);
+            
+            if( fs.existsSync(file_loc) ){
+                deleteReportFile(device_name);
+                notify(`Device back up`, device_name);
+            }
+
         }
     });
 }
@@ -85,7 +92,7 @@ function createReportFile(file_loc, device_name){
     
     const already_exists = fs.existsSync(file_loc);
     
-    fs.writeFileSync(file_loc,'report sent');
+    fs.writeFileSync(file_loc,new Date().toString());
 
     return already_exists;
 }
@@ -127,5 +134,6 @@ function addMissingEntriesFromFs(device_obj){
 }
 
 function notify(title, text){
+    console.log({'Title':title, text});
     axios.post(notify_url, text, {headers:{'Title':title}});
 }
