@@ -43,7 +43,7 @@ const FIVE_MINUTES = 1000*60*5;
     // return console.log(new_data);
 
     new_data = arrToObj(new_data, 'device_name');
-    new_data = addMissingEntriesFromFs(new_data);
+    new_data = addMissingEntriesFromFs(new_data, store_dir_good);
 
     console.log(Object.keys(new_data));
     console.log(new_data);
@@ -120,9 +120,9 @@ function arrToObj(arr, obj_key){
     },{});
 }
 
-function addMissingEntriesFromFs(device_obj){
+function addMissingEntriesFromFs(device_obj, dir){
     
-    const dir_files = fs.readdirSync(store_dir_good);
+    const dir_files = fs.readdirSync(dir);
 
     dir_files.forEach((cur, i, arr)=>{
         if(device_obj[cur]===undefined){
