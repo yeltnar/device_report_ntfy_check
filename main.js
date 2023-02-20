@@ -12,7 +12,7 @@ const {
     notify_topic,
 } = config;
 
-const url = `${base_url}/${topic}/json?since=5m&poll=1`;
+const report_url = `${base_url}/${topic}/json?since=5m&poll=1`;
 const store_dir_bad=`/tmp/device_report_ntfy/bad`;
 const store_dir_good=`${process.env.HOME}/config/device_report_ntfy/good`;
 
@@ -25,7 +25,7 @@ const FIVE_MINUTES = 1000*60*5;
     fs.mkdirSync(store_dir_bad, {recursive:true});
     fs.mkdirSync(store_dir_good, {recursive:true});
 
-    let new_data = (await axios.get(url, report_options)).data
+    let new_data = (await axios.get(report_url, report_options)).data
     // let old_data = (await axios.get(url)).data
 
     new_data = new_data.split('\n').reduce((acc, cur, i, arr)=>{
