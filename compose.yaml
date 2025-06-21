@@ -1,3 +1,5 @@
 services:
   app:
     build: .
+    volumes:
+      - ./config:/app/config
